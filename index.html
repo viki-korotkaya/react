@@ -17,19 +17,64 @@
 <body>
     <div id="root"></div>
     <script type="text/babel">
-        const App = () => {
-                return <React.Fragment>
-                    <News/>
-                    <Comments/>
-                </React.Fragment>
-        }
-        const News = () => {
-            return <p>Unfortunately, no news</p>
-        }
+
+        const myNews = [
+            {
+                id: 1,
+                author: 'Jim Bim',
+                text: 'On saturday .....'
+            },
+            {
+                id: 2,
+                author: 'Mary Lee',
+                text: 'I guess, goverment of India....'
+            },
+            {
+                id: 3,
+                author: 'Max FrontEnd',
+                text: 'For successful pragramming studying .....'
+            },
+            {
+                id: 4,
+                author: 'Guest',
+                text: 'Cheap, qualitatively and fast we will deliver your order'
+            }
+        ];
+
+            class News extends React.Component {
+              render() {
+                const newsTemplate = this.props.data.map(function(item) {
+                  return (
+                    <div key={item.id}>
+                      <p className="news__author">{item.author}:</p>
+                      <p className="news__text">{item.text}</p>
+                    </div>
+                  )
+                })
+
+                console.log(newsTemplate)
+
+                return (
+                  <div className="news">
+                    {newsTemplate}
+                    <strong>Всего новостей: {this.props.data.length}</strong>
+                  </div>
+                )
+              }
+            }
+
 
 
         const Comments = () => {
             return <p>No news, no comments</p>
+        }
+        const App = () => {
+          return (
+            <React.Fragment>
+              <News data={myNews}/>
+              <Comments />
+            </React.Fragment>
+          )
         }
 
         ReactDOM.render(
