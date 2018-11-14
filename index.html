@@ -12,6 +12,10 @@
         .red {
             color: #FF0000;
         }
+
+        .none {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -43,21 +47,30 @@
 
             class News extends React.Component {
               render() {
-                const newsTemplate = this.props.data.map(function(item) {
-                  return (
-                    <div key={item.id}>
-                      <p className="news__author">{item.author}:</p>
-                      <p className="news__text">{item.text}</p>
-                    </div>
-                  )
-                })
+                const { data } = this.props
+                let newsTemplate
+                if (data.length){
+                    newsTemplate = data.map(function(item) {
+                      return (
+                        <div key={item.id}>
+                          <p className="news__author">{item.author}:</p>
+                          <p className="news__text">{item.text}</p>
+                        </div>
+                      )
+                    })
+                } else {
+                    newsTemplate = <p>No news</p>
+                }
 
-                console.log(newsTemplate)
 
                 return (
                   <div className="news">
                     {newsTemplate}
-                    <strong>Всего новостей: {this.props.data.length}</strong>
+                    {/* <strong className = {data.length > 0? '' : 'none'}>Всего новостей: {this.props.data.length}</strong> */}
+                    {
+                        data.length ? <strong>Всего новостей: {this.props.data.length}</strong> : null
+                    }
+
                   </div>
                 )
               }
